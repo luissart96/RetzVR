@@ -45,7 +45,7 @@ namespace FrostweepGames.Plugins.GoogleCloud.TextToSpeech
         public bool isFullDebugLogIfError = false;
 
         [Header("Prefab Fields")]
-        public string apiKey = string.Empty;
+        public string apiKey = "AIzaSyAv21AnD2BRSgbxZU1vBP6qZMX74Tgwy7g";
 
         private void Awake()
         {

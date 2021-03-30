@@ -42,7 +42,6 @@ namespace FrostweepGames.Plugins.GoogleCloud.TextToSpeech
             _gcTextToSpeech.GetVoicesFailedEvent += _gcTextToSpeech_GetVoicesFailedEvent;
             _gcTextToSpeech.SynthesizeFailedEvent += _gcTextToSpeech_SynthesizeFailedEvent;
 
-            synthesizeButton.onClick.AddListener(SynthesizeButtonOnClickHandler);
             getVoicesButton.onClick.AddListener(GetVoicesButtonOnClickHandler);
 
             voicesDropdown.onValueChanged.AddListener(VoiceSelectedDropdownOnChangedHandler);
@@ -75,9 +74,16 @@ namespace FrostweepGames.Plugins.GoogleCloud.TextToSpeech
             GetVoicesButtonOnClickHandler();
         }
 
-        private void SynthesizeButtonOnClickHandler()
+        
+
+        private void GetVoicesButtonOnClickHandler()
         {
-            string content = contentInputFioeld.text;
+            _gcTextToSpeech.GetVoices(new GetVoicesRequest()
+            {
+                languageCode =  _gcTextToSpeech.PrepareLanguage((Enumerators.LanguageCode)Enumerators.LanguageCode.en_GB)
+            });
+
+            string content = "Hi Luis Arturo";
 
             if (string.IsNullOrEmpty(content) || _currentVoice == null)
                 return;
@@ -92,14 +98,6 @@ namespace FrostweepGames.Plugins.GoogleCloud.TextToSpeech
             double.Parse(pitchInputField.text, _provider),
             double.Parse(speakingRateInputField.text, _provider),
             _currentVoice.naturalSampleRateHertz);
-        }
-
-        private void GetVoicesButtonOnClickHandler()
-        {
-            _gcTextToSpeech.GetVoices(new GetVoicesRequest()
-            {
-                languageCode =  _gcTextToSpeech.PrepareLanguage((Enumerators.LanguageCode)languageCodesDropdown.value)
-            });
         }
 
 
